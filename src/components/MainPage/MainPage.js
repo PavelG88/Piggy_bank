@@ -5,7 +5,7 @@ class MainPage extends Component {
     render() { 
         return (
             <div className="main-page">
-               
+               <div> Piggy Bank - Начало! </div>
             </div>
         );
     }
