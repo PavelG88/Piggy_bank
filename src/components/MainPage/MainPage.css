@@ -1,8 +1,55 @@
 .main-page {
-    padding: 10px;
-    max-width: 336px;
+    max-width: 350px;
+    height: 600px;
     border: 1px solid #C4C4C4;
-    border-radius: 12px;   
     margin: auto;
-    padding: 0;
+    background-color: bisque;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.header {
+    display: flex; 
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.purpose,  .may_purpose{
+    flex-direction: row;
+    background-color: coral;
+    padding: 5px;
+    justify-content: space-around;
+    border-radius: 50px;
+    
+    width: 130px;
+    text-align: center;
+    color: white;
+}
+
+.summ {
+    text-align: center;
+    margin: 30px;
+}
+
+.summ_text {
+    font-size: 50px;
+    color: rgb(221, 96, 23);
+    margin: 20px;
+}
+
+
+.summ_itog {
+    color: rgb(58, 36, 187);
+    border-radius: 100px;
+    background-color: rgb(180, 207, 81);
+    margin: 40px 0;
+    align-items: center;
+    font-size: 30px;
+    
+}
+
+.summ_itog_num, .summ_itog_val {
+    padding: 20px;
 }
