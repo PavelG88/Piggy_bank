@@ -27,29 +27,6 @@
     text-align: center;
     color: white;
 }
-
-.summ {
-    text-align: center;
-    margin: 30px;
-}
-
-.summ_text {
-    font-size: 50px;
-    color: rgb(221, 96, 23);
-    margin: 20px;
-}
-
-
-.summ_itog {
-    color: rgb(58, 36, 187);
-    border-radius: 100px;
+ .purpose:hover,  .may_purpose:hover {
     background-color: rgb(180, 207, 81);
-    margin: 40px 0;
-    align-items: center;
-    font-size: 30px;
-    
-}
-
-.summ_itog_num, .summ_itog_val {
-    padding: 20px;
 }
