@@ -23,7 +23,7 @@ class InputMoney extends Component {
                         className="input-area__field-input"
                     />
                     <select name={this.props.name}>
-                        
+                        <option value="rub">Руб.</option>
                     </select>
                 </label>
             </div>
