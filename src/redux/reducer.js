@@ -11,6 +11,17 @@ let initialState = {
             monthPayment: 1000,
             createDate: '2021-08-07',
             lastChangeDate: '2021-08-07'
+        },
+        {
+            id: 2,
+            targetName: 'Первая цель',
+            targetCost: 1000,
+            finishDate: '2021-09-01',
+            initialPayment: 0,
+            depositInterest: 3.1,
+            monthPayment: 1000,
+            createDate: '2021-08-07',
+            lastChangeDate: '2021-08-07'
         }
     ]
 };
