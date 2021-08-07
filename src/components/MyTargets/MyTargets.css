@@ -1,0 +1,52 @@
+.my_targets {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.my_purpose {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.chart{
+    display: flex;
+    flex-direction: column; 
+    background-color: rgb(197, 247, 230);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.chart_text {
+    display: flex;
+    justify-content: space-between;  
+}
+
+.grafik {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.finish {
+    display: flex;
+}
+
+.new_chart {
+    text-decoration: none;
+    margin: 10px auto;
+    width: 120px;
+    border-radius: 50px;
+    background-color: coral;
+    padding: 5px;
+    color: white;
+    border: 2px solid black;
+}
+
+
+
+.new_chart:hover {
+    background-color: rgb(180, 207, 81);
+}

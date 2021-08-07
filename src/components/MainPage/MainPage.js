@@ -5,7 +5,7 @@ import NewTarget from '../NewTarget/NewTarget';
 import MainStart from '../MainStart/MainStart';
 
 import './MainPage.css';
-
+import MyTargets from '../MyTargets/MyTargets';
 
 class MainPage extends Component {
     render() { 
@@ -13,11 +13,12 @@ class MainPage extends Component {
             <div className="main-page">
                 <div className="header">
                     <Link className="purpose" to="/newtarget"> СОЗДАТЬ ЦЕЛЬ </Link>
-                    <button className="may_purpose"> МОИ ЦЕЛИ </button>
+                    <Link className="main" to="/">00</Link>
+                    <Link className="may_purpose" to="/mytargets"> МОИ ЦЕЛИ </Link>
                 </div>
                 <Route path="/" exact component={MainStart} />
                 <Route path="/newtarget" exact component={NewTarget} /> 
-                                     
+                <Route path="/mytargets" exact component={MyTargets} />                  
             </div>
         );
     }
