@@ -35,13 +35,18 @@
 }
 
 .new_chart {
+    text-decoration: none;
     margin: 10px auto;
     width: 120px;
-    border-radius: 5px;
-    
+    border-radius: 50px;
+    background-color: coral;
+    padding: 5px;
+    color: white;
+    border: 2px solid black;
 }
 
+
+
 .new_chart:hover {
-    background-color: aquamarine;
-    
+    background-color: rgb(180, 207, 81);
 }

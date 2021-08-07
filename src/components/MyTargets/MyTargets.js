@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './MyTargets.css';
 
 
@@ -24,7 +25,10 @@ class MyTargets extends Component {
                     </div>
                     <div className="finish">До цели сталось "сумма"</div>
                 </div>
-                <button className="new_chart">Новая цель</button>
+                
+                <Link  to="/newtarget" className="new_chart">Новая цель</Link>
+                
+              
             </div>
         );
     }

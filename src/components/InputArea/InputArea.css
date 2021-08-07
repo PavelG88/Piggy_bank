@@ -1,0 +1,9 @@
+.input-area {
+    margin: 5px 0;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+}
+
+.input-area__field-input {
+    width: calc(100% - 8px);
+}

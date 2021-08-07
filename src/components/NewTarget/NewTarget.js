@@ -1,0 +1,65 @@
+import React, { Component } from 'react';
+import InputArea from '../InputArea/InputArea';
+import InputMoney from '../InputMoney/InputMoney';
+
+import './NewTarget.css';
+
+class NewTarget extends Component {
+    state = {
+        targetName: null,
+        targetCost: null,
+        finishDate: null,
+        initialPayment: null,
+        depositInterest: null,
+        monthPayment: null
+    }
+    
+    render() { 
+        return (
+            <div className="new-target">
+                <h2 className="new-target__title">Введите данные по цели</h2>
+                <form className="new-target__form-input"> 
+                    <InputArea
+                        id='targetName'
+                        label='Название цели:'
+                        name='targetName'
+                        type='text'
+                    />
+                    <InputMoney
+                        id='targetCost'
+                        label='Сколько нужно на цель:'
+                        name='targetCost'
+                        type='text'
+                    />
+                    <InputArea
+                        id='finishDate'
+                        label='Когда хочу достигнуть цель:'
+                        name='finishDate'
+                        type='date'
+                    />
+                    <InputMoney
+                        id='initialPayment'
+                        label='Сколько готов отдать сейчас:'
+                        name='initialPayment'
+                        type='text'
+                    />
+                    <InputArea
+                        id='depositInterest'
+                        label='Под какой процент вложу:'
+                        name='depositInterest'
+                        type='text'
+                    />
+                    <InputMoney
+                        id='monthPayment'
+                        label='Сколько нужно отдавать в месяц:'
+                        name='monthPayment'
+                        type='text'
+                    />
+                    <button type="submit" className="new-target__button">СОЗДАТЬ</button>
+                </form>
+            </div>
+        );
+    }
+}
+ 
+export default NewTarget;
