@@ -17,11 +17,13 @@
 }
 
 .purpose,  .may_purpose{
+    text-decoration: none;
     flex-direction: row;
     background-color: coral;
     padding: 5px;
     justify-content: space-around;
     border-radius: 50px;
+    border: 2px solid black;
     
     width: 130px;
     text-align: center;
@@ -29,4 +31,5 @@
 }
  .purpose:hover,  .may_purpose:hover {
     background-color: rgb(180, 207, 81);
+    cursor: pointer;
 }

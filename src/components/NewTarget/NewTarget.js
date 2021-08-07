@@ -17,7 +17,8 @@ class NewTarget extends Component {
     render() { 
         return (
             <div className="new-target">
-               <form className="new-target__form-input"> 
+                <h2 className="new-target__title">Введите данные по цели</h2>
+                <form className="new-target__form-input"> 
                     <InputArea
                         id='targetName'
                         label='Название цели:'
@@ -28,11 +29,11 @@ class NewTarget extends Component {
                         id='targetCost'
                         label='Сколько нужно на цель:'
                         name='targetCost'
-                        type='number'
+                        type='text'
                     />
                     <InputArea
                         id='finishDate'
-                        label='Когда хочу достигнуть цели:'
+                        label='Когда хочу достигнуть цель:'
                         name='finishDate'
                         type='date'
                     />
@@ -40,22 +41,22 @@ class NewTarget extends Component {
                         id='initialPayment'
                         label='Сколько готов отдать сейчас:'
                         name='initialPayment'
-                        type='number'
+                        type='text'
                     />
                     <InputArea
                         id='depositInterest'
                         label='Под какой процент вложу:'
                         name='depositInterest'
-                        type='number'
+                        type='text'
                     />
                     <InputMoney
                         id='monthPayment'
                         label='Сколько нужно отдавать в месяц:'
                         name='monthPayment'
-                        type='number'
+                        type='text'
                     />
-
-               </form>
+                    <button type="submit" className="new-target__button">СОЗДАТЬ</button>
+                </form>
             </div>
         );
     }

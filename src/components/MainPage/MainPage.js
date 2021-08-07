@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
 import NewTarget from '../NewTarget/NewTarget';
 import MainStart from '../MainStart/MainStart';
@@ -12,11 +12,11 @@ class MainPage extends Component {
         return (
             <div className="main-page">
                 <div className="header">
-                    <button className="purpose"> СОЗДАТЬ ЦЕЛЬ </button>
+                    <Link className="purpose" to="/newtarget"> СОЗДАТЬ ЦЕЛЬ </Link>
                     <button className="may_purpose"> МОИ ЦЕЛИ </button>
                 </div>
                 <Route path="/" exact component={MainStart} />
-                <Route path="/NewTarget" exact component={NewTarget} /> 
+                <Route path="/newtarget" exact component={NewTarget} /> 
                                      
             </div>
         );

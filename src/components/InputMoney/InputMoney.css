@@ -1,0 +1,18 @@
+.input-money {
+    margin: 5px 0;
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+}
+
+.input-money__field-input {
+    width: 100%;
+}
+
+.input-money__field-input {
+    width: calc(80% - 15px);
+    margin-right: 5px;
+}
+
+.input-money__field-select {
+    width: 20%;
+}
