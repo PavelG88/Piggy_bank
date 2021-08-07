@@ -1,0 +1,1 @@
+export const addNewTarget = 'ADD_NEW_TARGET';
