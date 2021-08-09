@@ -9,7 +9,7 @@ class MyTargets extends Component {
     //    console.log(targets[i])
         return (
             <div className="my_targets">
-                {this.props.targets.forEach((target) => {
+                {/* {this.props.targets.forEach((target) => {
                     <div className="my_purpose">
                     <div>{target.targetName}</div>               
                         <div className="button">
@@ -31,7 +31,7 @@ class MyTargets extends Component {
                     </div>
                     <div className="finish">До цели сталось {target.monthPayment-target.targetCost} руб.</div>
                     </div>
-                });}
+                });} */}
                                 
                 <Link  to="/newtarget" className="new_chart">Новая цель</Link>
             </div>
