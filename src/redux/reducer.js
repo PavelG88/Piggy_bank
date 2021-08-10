@@ -19,7 +19,7 @@ let initialState = {
             finishDate: '2021-09-01',
             initialPayment: 0,
             depositInterest: 3.1,
-            monthPayment: 1000,
+            monthPayment: 10000,
             createDate: '2021-08-07',
             lastChangeDate: '2021-08-07'
         }
