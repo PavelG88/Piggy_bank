@@ -24,3 +24,8 @@
     background-color: rgb(180, 207, 81);
     cursor: pointer;
 }
+
+.new-target__button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

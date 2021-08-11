@@ -1,5 +1,5 @@
 .input-money {
-    margin: 5px 0;
+    margin: 20px 0;
     font-family: Roboto, sans-serif;
     font-size: 16px;
 }
@@ -15,4 +15,15 @@
 
 .input-money__field-select {
     width: 20%;
+    text-align: center;
+}
+
+.error {
+    position: absolute;
+    font-size: 11px;
+    color: red;
+}
+
+.unvisible {
+    display: none;
 }

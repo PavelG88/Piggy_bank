@@ -1,3 +1,4 @@
+import { addNewTarget } from '../components/actions/actions';
 
 let initialState = {
     targets: [
@@ -12,14 +13,22 @@ let initialState = {
             createDate: '2021-08-07',
             lastChangeDate: '2021-08-07'
         }
-    ]
+    ],
+    nextId: 2
 };
 
 /**
  * state = initialState - установка значения по умолчанию. Когда ничего не пердается
  */
 function reducer(state = initialState, action) {
-    
+    if (action.type === addNewTarget) {
+        action.payload.id = state.nextId;
+        let updateState = {...state};
+        updateState.targets = [...state.targets, action.payload];
+        updateState.nextId += 1;
+        console.log(updateState);
+        return updateState;
+    }
    
     return state;
 }
