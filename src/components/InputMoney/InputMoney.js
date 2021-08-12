@@ -11,11 +11,11 @@ class InputMoney extends Component {
         
         if (this.props.name === 'targetCost') {
             //Проверка введенной суммы цели
-            const error = 'Сумма больше 0 (не более двух знаков после запятой)';
-            if (event.target.value && (isNaN(event.target.value.replace(/,/, '.')) || event.target.value <= 0)) {
-                //Проверка, что число и больше нуля
+            const error = 'Указать число больше 0 (не более двух знаков после запятой)';
+            if (!event.target.value || isNaN(event.target.value.replace(/,/, '.')) || event.target.value <= 0) {
+                //Проверка, что поле заполнено, что число и больше нуля
                 this.setState({messageError: error});
-                return;
+
             } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
                 //Проверка, что не более 2-х знаков после запятой
                 if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
@@ -23,13 +23,14 @@ class InputMoney extends Component {
                 } else {
                     this.setState({messageError: ''});
                 }
+
             } else {
                 this.setState({messageError: ''});
             }
 
         } else if (this.props.name === 'initialPayment') {
             //Проверка первоначального взноса
-            if (event.target.value && (isNaN(event.target.value.replace(/,/, '.')) || event.target.value < 0)) {
+            if (isNaN(event.target.value.replace(/,/, '.')) || event.target.value < 0) {
                 //Проверка, что число и больше нуля
                 const error = 'Введена сумма меньше 0';
                 this.setState({messageError: error});
@@ -62,10 +63,14 @@ class InputMoney extends Component {
 
         }
         
-        if (this.state.messageError || !event.target.value) {
+        if (this.state.messageError) {
             this.props.action(this.props.name, null, true);
         } else {
-            this.props.action(this.props.name, +event.target.value);
+            if (this.props.name === 'initialPayment' && !event.target.value) {
+                this.props.action(this.props.name, null);
+            } else {
+                this.props.action(this.props.name, +event.target.value);
+            }
         }
     }
     

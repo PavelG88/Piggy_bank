@@ -37,19 +37,20 @@ class NewTarget extends Component {
     changeState = (inputName, data, isError = false) => {
 
         if (isError) {
-            let isFieldInState = this.state.fieldsWithError.forEach((item) => {
-                if (item === inputName) {
-                    return true;
-                } else {
-                    return false;
-                }
+            //Проверяем есть ли поле уже в полях с ошибкой
+            let isFieldInFieldsWithError = this.state.fieldsWithError.find((item) => {
+                return item === inputName;
             });
 
-            if (!isFieldInState) {
+            if (!isFieldInFieldsWithError) {
                 const newFielsWithError = [...this.state.fieldsWithError, inputName];
-                this.setState({ [inputName]: data, fieldsWithError: newFielsWithError });
+                this.setState({ [inputName]: data, fieldsWithError: newFielsWithError }, () => {
+                    this.calculate();
+                });
             } else {
-                this.setState({ [inputName]: data });
+                this.setState({ [inputName]: data }, () => {
+                    this.calculate();
+                });
             }
 
         } else {
@@ -63,7 +64,12 @@ class NewTarget extends Component {
     }
     /*Вычисление платежа */
     calculate = () => {
-        if (this.state.targetCost && this.state.finishDate && this.state.depositInterest && this.state.fieldsWithError.length === 0) {
+        let isErrors =  true;
+        if (this.state.fieldsWithError.length === 0 || (this.state.fieldsWithError.length === 1 && this.state.fieldsWithError[0] === 'targetName')) {
+            isErrors = false;
+        }
+
+        if (!isErrors) {
             let depositInterestByMonth = (this.state.depositInterest / 12) / 100;
             let monthsToTarget = (this.getYear(this.state.finishDate) - this.getYear(today)) * 12 + this.getMonth(this.state.finishDate) - this.getMonth(today);
             let firstPayment = this.state.initialPayment ? this.state.initialPayment : 0;
@@ -78,7 +84,7 @@ class NewTarget extends Component {
 
             this.setState({ monthPayment: payment, initialPayment: firstPayment });
         } else {
-            this.setState({ monthPayment: null });
+            this.setState({ monthPayment: 0 });
         };
     }
 
@@ -95,6 +101,7 @@ class NewTarget extends Component {
         let newTarget = {...this.state};
         delete newTarget.fieldsWithError;
         this.props.addNewTarget(newTarget);
+        window.location.href = '/mytargets';
     }
 
     render() { 

@@ -13,7 +13,7 @@ class InputArea extends Component {
         if (this.props.name === 'targetName') {
             //Проверка название цели
             const error = 'Название цели 3-20 символов'
-            if(event.target.value && (event.target.value.length < 3 || event.target.value.length > 20)) {
+            if(!event.target.value || event.target.value.length < 3 || event.target.value.length > 20) {
                 this.setState({messageError: error});
             } else {
                 this.setState({messageError: ''});
@@ -23,7 +23,7 @@ class InputArea extends Component {
         } else if (this.props.name === 'finishDate') {
             //Проверка даты
             const error = 'Дата цели должна быть не раньше, чем завтра'
-            if(this.getYear(event.target.value) < this.getYear(this.props.today)) {
+            if (this.getYear(event.target.value) < this.getYear(this.props.today)) {
                 this.setState({messageError: error});
             } else if (this.getYear(event.target.value) === this.getYear(this.props.today) && this.getMonth(event.target.value) < this.getMonth(this.props.today)) {
                 this.setState({messageError: error});
@@ -39,7 +39,7 @@ class InputArea extends Component {
         } else if (this.props.name === 'depositInterest'){
             //Проверка введенного процента
             const error = 'Число от 0.01 до 100 (не более двух знаков после запятой)';
-            if (event.target.value && (isNaN(event.target.value.replace(/,/, '.')) || event.target.value < 0.01 || event.target.value > 100)) {
+            if (!event.target.value || isNaN(event.target.value.replace(/,/, '.')) || event.target.value < 0.01 || event.target.value > 100) {
                 //Проверка, что число от 0.01 до 100
                 this.setState({messageError: error});
             } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
@@ -55,7 +55,7 @@ class InputArea extends Component {
             }
         }
 
-        if (isError || !event.target.value) {
+        if (isError) {
             this.props.action(this.props.name, null, true);
         } else {
             this.props.action(this.props.name, event.target.value);
