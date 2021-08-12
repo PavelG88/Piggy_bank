@@ -6,12 +6,8 @@ import store from '../../redux/store';
 
 class MyTargets extends Component {
 
-    let deleteTarget = (targetId) => {
-    store.dispatch({
-        type: "DELETE_TARGET",
-        id: targetId
-    })
-};
+    
+
     render() {
     // console.log(this.props.targets)
 
@@ -21,7 +17,7 @@ class MyTargets extends Component {
     //                   );
     //     this.setState.props({ targets: clone });
     //   };
-    console.log(this.props.targets[0].id)
+    // console.log(this.props.targets[0].id)
         return (
             <div className="my_targets">
                 {this.props.targets.map((target) => {
@@ -31,7 +27,7 @@ class MyTargets extends Component {
                             <div><span className="target_name">{target.targetName}</span></div>               
                             <div className="button">
                                 <button>ред.</button>
-                                <button onClick = {() => this.deleteTarget(target.id)}>x</button>
+                                <button onClick = {() => this.props.deleteTarget(target.id)}>x</button>
                                 {/* онклик =  */}
                             </div>
                         </div>
@@ -59,7 +55,6 @@ class MyTargets extends Component {
         )
     }
 }
-
 
 
 
@@ -95,12 +90,14 @@ const mapStateToProps = (state) => {
     }
  }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//     //     onTodoClick: (id) => {
-//     //     // dispatch(toggleTodo(id))
-//     // }
-// }
+const mapDispatchToProps = dispatch => ({
+    deleteTarget: (targetId) => {
+        dispatch({
+            type: "DELETE_TARGET",
+            payload: targetId
+            });
+        }
+})
 
-export default connect(mapStateToProps)(MyTargets);
-// mapDispatchToProps
+export default connect(mapStateToProps, mapDispatchToProps)(MyTargets);
+// 

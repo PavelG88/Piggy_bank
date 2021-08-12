@@ -30,12 +30,31 @@ let initialState = {
  * state = initialState - установка значения по умолчанию. Когда ничего не пердается
  */
 function reducer(state = initialState, action) {
-//     function deleteTarget(elem, id) {
-//     initialState.filter((elem) => {
-//         if(elem !== initialState.targets.id)
-//         return {...initialState};
-//     }) 
-// }
+    // if(action.type === "DELETE_TARGET") {
+    //    let result = state.filter((item, i) => {
+    //     return item[i].id
+    // })
+    // console.log(result) 
+    // }
+    
+    if(action.type === "DELETE_TARGET") {
+        // let target = state.targets.find(target => target.id === action.id);
+        // console.log(target)
+
+        let updateState = {...state};
+       let updatedTarget = updateState.targets.filter((target) => {
+           return target.id !== action.payload
+       }) 
+       updateState.targets = [...updatedTarget];
+        return updateState;
+
+        // let targetsDel = [];
+        // let newTargets = {...state};
+        // newTargets = targetsDel
+
+        // return newTargets;
+    }
+
     return state;
 }
  
