@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './MyTargets.css';
 import { connect } from 'react-redux';
+import store from '../../redux/store';
 
 class MyTargets extends Component {
 
-
+    let deleteTarget = (targetId) => {
+    store.dispatch({
+        type: "DELETE_TARGET",
+        id: targetId
+    })
+};
     render() {
     // console.log(this.props.targets)
 
@@ -25,7 +31,8 @@ class MyTargets extends Component {
                             <div><span className="target_name">{target.targetName}</span></div>               
                             <div className="button">
                                 <button>ред.</button>
-                                <button>x</button>
+                                <button onClick = {() => this.deleteTarget(target.id)}>x</button>
+                                {/* онклик =  */}
                             </div>
                         </div>
                         <div className="chart">
@@ -35,7 +42,9 @@ class MyTargets extends Component {
                             </div>
                             <div className="grafik">
                                 <div class="meter">
-                                    <span style={{width: target.targetCost/target.monthPayment*100 + "%"}}>{target.targetCost/target.monthPayment*100}% </span>
+                                    <span style={{width: target.targetCost/target.monthPayment*100 + "%"}}>
+                                        {target.targetCost/target.monthPayment*100 === 100 ? "Цель достигнута!" : target.targetCost/target.monthPayment*100 + "%"}
+                                    </span>
                                 </div>
                                 <div> </div>
                             </div>    
@@ -51,16 +60,18 @@ class MyTargets extends Component {
     }
 }
 
-// const deleteTarget = (targetId) => {
-//         for(let i = 0; i < targetId.length) {
+
+
+
+        // for(let i = 0; i < targetId.length) {
             
-//         }
-//     // if (targetId === this.props.targets[].id) {
-//     //     console.log("222", this.props.targets[0].id)
-//     //    return targetId
+        // }
+    // if (targetId === this.props.targets[].id) {
+    //     console.log("222", this.props.targets[0].id)
+    //    return targetId
        
-//     // }
-// };
+    // }
+
 // console.log('111', deleteTarget)
 
 
@@ -79,9 +90,17 @@ class MyTargets extends Component {
 
 
 const mapStateToProps = (state) => {
-     return {
-         targets: state.targets
-     }
+    return {
+        targets: state.targets
+    }
  }
 
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//     //     onTodoClick: (id) => {
+//     //     // dispatch(toggleTodo(id))
+//     // }
+// }
+
 export default connect(mapStateToProps)(MyTargets);
+// mapDispatchToProps

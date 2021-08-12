@@ -30,9 +30,16 @@ let initialState = {
  * state = initialState - установка значения по умолчанию. Когда ничего не пердается
  */
 function reducer(state = initialState, action) {
-    
-   
+//     function deleteTarget(elem, id) {
+//     initialState.filter((elem) => {
+//         if(elem !== initialState.targets.id)
+//         return {...initialState};
+//     }) 
+// }
     return state;
 }
+ 
+
+
 
 export default reducer;
