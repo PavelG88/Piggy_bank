@@ -47,25 +47,23 @@ class NewTarget extends Component {
 
             if (!isFieldInState) {
                 const newFielsWithError = [...this.state.fieldsWithError, inputName];
-                this.setState({ fieldsWithError: newFielsWithError });
+                this.setState({ [inputName]: data, fieldsWithError: newFielsWithError });
+            } else {
+                this.setState({ [inputName]: data });
             }
+
         } else {
             const newFielsWithError = this.state.fieldsWithError.filter((item) => {
                 return item !== inputName;
             })
-            for (let key in this.state) {
-                if (key === inputName) {
-                    this.setState({ [key]: data, fieldsWithError: [...newFielsWithError] }, () => {
-                        this.calculate();
-                    });
-                    break;
-                }
-            }
+            this.setState({ [inputName]: data, fieldsWithError: [...newFielsWithError] }, () => {
+                this.calculate();
+            });
         }
     }
     /*Вычисление платежа */
     calculate = () => {
-        if (this.state.targetCost && this.state.finishDate && this.state.depositInterest) {
+        if (this.state.targetCost && this.state.finishDate && this.state.depositInterest && this.state.fieldsWithError.length === 0) {
             let depositInterestByMonth = (this.state.depositInterest / 12) / 100;
             let monthsToTarget = (this.getYear(this.state.finishDate) - this.getYear(today)) * 12 + this.getMonth(this.state.finishDate) - this.getMonth(today);
             let firstPayment = this.state.initialPayment ? this.state.initialPayment : 0;
@@ -75,7 +73,7 @@ class NewTarget extends Component {
                 payment = this.state.targetCost - firstPayment;
             } else {
                 payment = (this.state.targetCost - (firstPayment * (1 + depositInterestByMonth))) * (depositInterestByMonth / ((1 + depositInterestByMonth) ** monthsToTarget - 1));
-                payment = Math.round(payment * 100) / 100;
+                payment = payment <= 0 ? 0 : Math.round(payment * 100) / 100;
             }
 
             this.setState({ monthPayment: payment, initialPayment: firstPayment });

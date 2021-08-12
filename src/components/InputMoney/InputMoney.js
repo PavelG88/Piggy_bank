@@ -12,7 +12,7 @@ class InputMoney extends Component {
         if (this.props.name === 'targetCost') {
             //Проверка введенной суммы цели
             const error = 'Сумма больше 0 (не более двух знаков после запятой)';
-            if (event.target.value && (isNaN(event.target.value.replace(/,/, '.')) || event.target.value < 0)) {
+            if (event.target.value && (isNaN(event.target.value.replace(/,/, '.')) || event.target.value <= 0)) {
                 //Проверка, что число и больше нуля
                 this.setState({messageError: error});
                 return;
@@ -44,7 +44,7 @@ class InputMoney extends Component {
                 const error = 'Укажите необходимую сумму на цель';
                 this.setState({messageError: error});
 
-            }else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
+            } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
                 //Проверка, что не более 2-х знаков после запятой
                 const error = 'Не более двух знаков после запятой';
                 if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
@@ -56,6 +56,7 @@ class InputMoney extends Component {
 
             } else {
                 this.setState({messageError: ''});
+                
             }
         } else if (this.props.name === 'monthPayment') {
 
