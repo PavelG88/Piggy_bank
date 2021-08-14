@@ -16,8 +16,9 @@
     border-radius: 50px;
     border: 2px solid black;  
     width: 130px;
-    text-align: center;
     color: white;
+    display: flex;
+    justify-content: center;
 }
 
 .new-target__button:hover {
@@ -29,3 +30,28 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* .btn {
+    display: inline-block;
+    background-color: yellow;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+
+    font-family: label;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: red;
+
+    box-shadow: 0 3px 0 red;
+    cursor: pointer;
+    transition: all 100ms linear;
+    
+    /* :hover {
+        @include transform(translateY(-4px));
+        box-shadow: 0 7px 0 red;
+    } */
+
+    /* :focus { outline: 0; } */
+/* } */

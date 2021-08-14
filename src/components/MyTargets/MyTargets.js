@@ -33,13 +33,13 @@ class MyTargets extends Component {
                             </div>
                             <div className="grafik">
                                 <div class="meter">
-                                    <span style={{width: target.targetCost/target.monthPayment*100 + "%"}}>
-                                        {target.targetCost/target.monthPayment*100 === 100 ? "Цель достигнута!" : target.targetCost/target.monthPayment*100 + "%"}
+                                    <span style={{width: target.accumulatedMoney/target.targetCost*100 + "%"}}>
+                                        {target.accumulatedMoney/target.targetCost*100 === 100 ? "Цель достигнута!" : target.accumulatedMoney/target.targetCost*100 + "%"}
                                     </span>
                                 </div>
                                 <div> </div>
                             </div>    
-                            <div className="finish">Осталось накопить {target.monthPayment-target.targetCost} руб.</div>   
+                            <div className="finish">Осталось накопить {target.targetCost-target.accumulatedMoney} руб.</div>   
                         </div>
                     </>
                     )

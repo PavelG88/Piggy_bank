@@ -13,7 +13,8 @@ class MainPage extends Component {
             <div className="main-page">
                 <div className="header">
                     <Link className="purpose" to="/newtarget"> СОЗДАТЬ ЦЕЛЬ </Link>
-                    <Link className="main" to="/">00</Link>
+                    <Link className="main" to="/">00 </Link>
+                    {/* <img src="/img/12.png"></img> */}
                     <Link className="may_purpose" to="/mytargets"> МОИ ЦЕЛИ </Link>
                 </div>
                 <Route path="/" exact component={MainStart} />
