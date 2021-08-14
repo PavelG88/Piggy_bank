@@ -58,6 +58,7 @@ class InputArea extends Component {
         if (isError) {
             this.props.action(this.props.name, null, true);
         } else {
+            console.log(event.target.value);
             this.props.action(this.props.name, event.target.value);
         }
 

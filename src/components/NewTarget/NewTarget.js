@@ -3,6 +3,8 @@ import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
 import { addNewTarget } from '../actions/actions';
+import {useHistory} from 'react-router-dom'
+
 
 import './NewTarget.css';
 
@@ -21,6 +23,11 @@ function formatDate() {
 
     return [year, month, day].join('-');
 }
+
+// function Go() {
+//     const h = useHistory();
+//     h.push('/mytargets');
+// }
 
 class NewTarget extends Component {
     state = {
@@ -102,6 +109,7 @@ class NewTarget extends Component {
         delete newTarget.fieldsWithError;
         this.props.addNewTarget(newTarget);
         window.location.href = '/mytargets';
+        // Go();
     }
 
     render() { 
