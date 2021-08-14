@@ -182,12 +182,8 @@ class NewTarget extends Component {
                         action={this.changeState}
                         disabled={true}
                     />
-<<<<<<< HEAD
                     <button type="submit" className="new-target__button" disabled={this.state.fieldsWithError.length === 0  ? false : true}>СОХРАНИТЬ</button>
-=======
-                    <button type="submit" className="new-target__button" disabled={this.state.fieldsWithError.length === 0  ? false : true}>СОЗДАТЬ</button>
                     {/* <button class="btn" id="btn-start">Start </button> */}
->>>>>>> origin/my_targets_modification
                 </form>
             </div>
         );
