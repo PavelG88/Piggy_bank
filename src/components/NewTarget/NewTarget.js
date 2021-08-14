@@ -166,6 +166,7 @@ class NewTarget extends Component {
                         disabled={true}
                     />
                     <button type="submit" className="new-target__button" disabled={this.state.fieldsWithError.length === 0  ? false : true}>СОЗДАТЬ</button>
+                    {/* <button class="btn" id="btn-start">Start </button> */}
                 </form>
             </div>
         );
