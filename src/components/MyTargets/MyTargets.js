@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './MyTargets.css';
 import { connect } from 'react-redux';
-import store from '../../redux/store';
 
 class MyTargets extends Component {  
 
@@ -15,7 +14,15 @@ class MyTargets extends Component {
                         <div className="my_purpose">
                             <div><span className="target_name">{target.targetName}</span></div>               
                             <div className="button">
-                                <button>ред.</button>
+                                <Link 
+                                    to={{
+                                        pathname: "/newtarget", 
+                                        state: {
+                                            target: target
+                                        }
+                                    }}
+                                ><button>ред.</button>
+                                </Link>
                                 <button onClick = {() => this.props.deleteTarget(target.id)}>x</button>
                             </div>
                         </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
-import { addNewTarget } from '../actions/actions';
+import { addNewTarget, editTarget } from '../actions/actions';
 import {useHistory} from 'react-router-dom'
 
 
@@ -38,6 +38,7 @@ class NewTarget extends Component {
         initialPayment: null,
         depositInterest: null,
         monthPayment: null,
+        accumulatedMoney: null,
         fieldsWithError: ['targetName', 'targetCost', 'finishDate', 'depositInterest']
     }
     
@@ -89,7 +90,7 @@ class NewTarget extends Component {
                 payment = payment <= 0 ? 0 : Math.round(payment * 100) / 100;
             }
 
-            this.setState({ monthPayment: payment, initialPayment: firstPayment });
+            this.setState({ monthPayment: payment, initialPayment: firstPayment, accumulatedMoney: firstPayment});
         } else {
             this.setState({ monthPayment: 0 });
         };
@@ -107,12 +108,25 @@ class NewTarget extends Component {
         event.preventDefault();
         let newTarget = {...this.state};
         delete newTarget.fieldsWithError;
-        this.props.addNewTarget(newTarget);
-        window.location.href = '/mytargets';
+        if (newTarget.id) {
+            this.props.editTarget(newTarget);
+        } else {
+            this.props.addNewTarget(newTarget);
+        }
+        // window.location.href = '/mytargets';
         // Go();
     }
 
+    updateState = (target) => {
+        target.fieldsWithError = [];
+        this.setState({ ...target });
+    }
+
     render() { 
+        if (this.props.location.state && !this.state.id) {
+            this.updateState(this.props.location.state.target);
+        }
+        
         return (
             <div className="new-target">
                 <h2 className="new-target__title">Введите данные по цели</h2>
@@ -123,6 +137,7 @@ class NewTarget extends Component {
                         name='targetName'
                         type='text'
                         action={this.changeState}
+                        value={this.state.targetName}
                     />
                     <InputMoney
                         id='targetCost'
@@ -130,7 +145,7 @@ class NewTarget extends Component {
                         name='targetCost'
                         type='text'
                         action={this.changeState}
-                        value={null}
+                        value={this.state.targetCost}
                     />
                     <InputArea
                         id='finishDate'
@@ -138,6 +153,7 @@ class NewTarget extends Component {
                         name='finishDate'
                         type='date'
                         today={today}
+                        value={this.state.finishDate}
                         action={this.changeState}
                     />
                     <InputMoney
@@ -154,6 +170,7 @@ class NewTarget extends Component {
                         label='Под какой процент вложу:'
                         name='depositInterest'
                         type='text'
+                        value={this.state.depositInterest}
                         action={this.changeState}
                     />
                     <InputMoney
@@ -165,7 +182,7 @@ class NewTarget extends Component {
                         action={this.changeState}
                         disabled={true}
                     />
-                    <button type="submit" className="new-target__button" disabled={this.state.fieldsWithError.length === 0  ? false : true}>СОЗДАТЬ</button>
+                    <button type="submit" className="new-target__button" disabled={this.state.fieldsWithError.length === 0  ? false : true}>СОХРАНИТЬ</button>
                 </form>
             </div>
         );
@@ -173,12 +190,18 @@ class NewTarget extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return 
+    return {
+        targets: state.targets
+    };
 };
 
 const mapDispatchToProps = dispatch => ({
     addNewTarget: (newTarget) => dispatch({
         type: addNewTarget,
+        payload: newTarget
+    }),
+    editTarget: (newTarget) => dispatch({
+        type: editTarget,
         payload: newTarget
     })
 });

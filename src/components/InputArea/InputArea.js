@@ -91,6 +91,7 @@ class InputArea extends Component {
                         id={this.props.name}
                         type={this.props.type}
                         className="input-area__field-input"
+                        value={this.props.value}
                         onChange={this.checkValue}
                     />
                 </label>
