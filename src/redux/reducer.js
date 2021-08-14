@@ -12,6 +12,17 @@ let initialState = {
             monthPayment: 1000,
             createDate: '2021-08-07',
             lastChangeDate: '2021-08-07'
+        },
+        {
+            id: 2,
+            targetName: 'Вторая цель',
+            targetCost: 15000,
+            finishDate: '2021-09-01',
+            initialPayment: 15000,
+            depositInterest: 0.01,
+            monthPayment: 5000,
+            createDate: '2021-08-07',
+            lastChangeDate: '2021-08-07'
         }
     ],
     nextId: 2
@@ -28,9 +39,21 @@ function reducer(state = initialState, action) {
         updateState.nextId += 1;
         console.log(updateState);
         return updateState;
+    
+    } else if(action.type === "DELETE_TARGET") {
+
+        let updateState = {...state};
+       let updatedTarget = updateState.targets.filter((target) => {
+           return target.id !== action.payload
+       }) 
+       updateState.targets = [...updatedTarget];
+        return updateState;
     }
-   
+
     return state;
 }
+ 
+
+
 
 export default reducer;

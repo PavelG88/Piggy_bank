@@ -1,6 +1,6 @@
 .main-page {
     max-width: 350px;
-    height: 600px;
+    min-height: 600px;
     border: 1px solid #C4C4C4;
     margin: auto;
     background-color: bisque;

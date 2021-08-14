@@ -5,6 +5,12 @@
     
 }
 
+.target_name {
+    font-size: 25px;
+    color: rgb(17, 19, 177);
+
+}
+
 .my_purpose {
     display: flex;
     justify-content: space-between;
@@ -17,6 +23,8 @@
     background-color: rgb(197, 247, 230);
     border-radius: 5px;
     padding: 10px;
+    border: solid 1px black;
+    margin-bottom: 30px;
 }
 
 .chart_text {
@@ -27,11 +35,69 @@
 .grafik {
     display: flex;
     justify-content: space-between;
+    font-size: 15px;
+    text-align: center;
+}
+.meter {
+    width: 100%;
+    height: 20px;  /* Может быть любой */
+    position: relative;
+    background: rgb(98, 179, 179);
+    /* -moz-border-radius: 25px;
+    -webkit-border-radius: 25px; */
+    /* /*  */
+    border-radius: 50px;
+    padding: 5px; 
+    /* -webkit-box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+    -moz-box-shadow   : inset 0 -1px 1px rgba(255,255,255,0.3);
+    box-shadow        : inset 0 -1px 1px rgba(255,255,255,0.3); */
+    margin: 10px 0;
+    border: solid 0.3px rgb(132, 113, 238);
     
+    
+    }
+
+    .meter > span {
+        display: block;
+        height: 100%;
+        /* -webkit-border-top-right-radius: 8px;
+        -webkit-border-bottom-right-radius: 8px;
+        -moz-border-radius-topright: 8px;
+        -moz-border-radius-bottomright: 8px; */
+        
+        /* -webkit-border-top-left-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-bottomleft: 20px; */
+        border-radius: 20px;
+        
+        background-color: rgb(96, 221, 129);
+        /* background-image: -webkit-gradient(
+            linear,
+            left bottom,
+            left top,
+            color-stop(0, rgb(43,194,83)),
+            color-stop(1, rgb(84,240,84))
+            ); */
+        /* background-image: -moz-linear-gradient(
+            center bottom,
+            rgb(43,194,83) 37%,
+            rgb(84,240,84) 69%
+            ); */
+        /* -webkit-box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+        -moz-box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+        position: relative;
+        overflow: hidden; */
+        
 }
 
 .finish {
     display: flex;
+    font-size: 10px;
 }
 
 .new_chart {
@@ -44,8 +110,6 @@
     color: white;
     border: 2px solid black;
 }
-
-
 
 .new_chart:hover {
     background-color: rgb(180, 207, 81);
