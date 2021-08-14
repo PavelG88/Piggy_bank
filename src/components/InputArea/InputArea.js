@@ -47,7 +47,9 @@ class InputArea extends Component {
                 if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
                     this.setState({messageError: error});
                 } else {
+                    console.log(event.target.value);
                     this.setState({messageError: ''});
+                    isError = false;
                 }
             } else {
                 this.setState({messageError: ''});
@@ -58,8 +60,11 @@ class InputArea extends Component {
         if (isError) {
             this.props.action(this.props.name, null, true);
         } else {
-            console.log(event.target.value);
-            this.props.action(this.props.name, event.target.value);
+            if (this.props.name === 'depositInterest') {
+                this.props.action(this.props.name, event.target.value.replace(/,/, '.'));
+            } else {
+                this.props.action(this.props.name, event.target.value);
+            }
         }
 
     }

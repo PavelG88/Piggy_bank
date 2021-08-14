@@ -66,10 +66,10 @@ class InputMoney extends Component {
         if (this.state.messageError) {
             this.props.action(this.props.name, null, true);
         } else {
-            if (this.props.name === 'initialPayment' && !event.target.value) {
+            if (this.props.name === 'initialPayment' && !event.target.value.replace(/,/, '.')) {
                 this.props.action(this.props.name, null);
             } else {
-                this.props.action(this.props.name, +event.target.value);
+                this.props.action(this.props.name, +event.target.value.replace(/,/, '.'));
             }
         }
     }
