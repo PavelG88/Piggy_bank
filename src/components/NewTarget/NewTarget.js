@@ -3,8 +3,7 @@ import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
 import { addNewTarget, editTarget } from '../actions/actions';
-import {useHistory} from 'react-router-dom'
-
+import {Redirect} from 'react-router-dom';
 
 import './NewTarget.css';
 
@@ -24,11 +23,6 @@ function formatDate() {
     return [year, month, day].join('-');
 }
 
-// function Go() {
-//     const h = useHistory();
-//     h.push('/mytargets');
-// }
-
 class NewTarget extends Component {
     state = {
         id: null,
@@ -39,7 +33,8 @@ class NewTarget extends Component {
         depositInterest: null,
         monthPayment: null,
         accumulatedMoney: null,
-        fieldsWithError: ['targetName', 'targetCost', 'finishDate', 'depositInterest']
+        fieldsWithError: ['targetName', 'targetCost', 'finishDate', 'depositInterest'],
+        isSaved: false
     }
     
     changeState = (inputName, data, isError = false) => {
@@ -62,9 +57,12 @@ class NewTarget extends Component {
             }
 
         } else {
+            //Удаляем поле из ошибок
             const newFielsWithError = this.state.fieldsWithError.filter((item) => {
                 return item !== inputName;
-            })
+            });
+
+            //Вносим изменения в локальный State и пересчитываем платеж
             this.setState({ [inputName]: data, fieldsWithError: [...newFielsWithError] }, () => {
                 this.calculate();
             });
@@ -108,13 +106,13 @@ class NewTarget extends Component {
         event.preventDefault();
         let newTarget = {...this.state};
         delete newTarget.fieldsWithError;
+        delete newTarget.isSaved;
         if (newTarget.id) {
             this.props.editTarget(newTarget);
         } else {
             this.props.addNewTarget(newTarget);
         }
-        // window.location.href = '/mytargets';
-        // Go();
+        this.setState({ isSaved: true});
     }
 
     updateState = (target) => {
@@ -125,6 +123,10 @@ class NewTarget extends Component {
     render() { 
         if (this.props.location.state && !this.state.id) {
             this.updateState(this.props.location.state.target);
+        }
+
+        if (this.state.isSaved) {
+            return <Redirect to='/mytargets'/>
         }
         
         return (
