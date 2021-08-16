@@ -35,16 +35,6 @@ class InputMoney extends Component {
                 const error = 'Введена сумма меньше 0';
                 this.setState({messageError: error});
 
-            } else if (event.target.value > this.props.targetCost) {
-                //Проверка, что меньше суммы цели
-                const error = 'Введена сумма больше суммы цели';
-                this.setState({messageError: error});
-
-            }  else if (event.target.value > this.props.targetCost) {
-                //Проверка, что заполнена цель суммы цели
-                const error = 'Укажите необходимую сумму на цель';
-                this.setState({messageError: error});
-
             } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
                 //Проверка, что не более 2-х знаков после запятой
                 const error = 'Не более двух знаков после запятой';
@@ -65,16 +55,25 @@ class InputMoney extends Component {
         
         if (this.state.messageError) {
             this.props.action(this.props.name, null, true);
+        } else if (this.props.name === 'initialPayment' && !event.target.value) {
+            this.props.action(this.props.name, null);
         } else {
-            if (this.props.name === 'initialPayment' && !event.target.value.replace(/,/, '.')) {
-                this.props.action(this.props.name, null);
-            } else {
-                this.props.action(this.props.name, +event.target.value.replace(/,/, '.'));
-            }
+            this.props.action(this.props.name, +event.target.value.replace(/,/, '.'));
         }
     }
     
-    render() { 
+    render() {
+
+        //Проверка, что меньше суммы цели
+        if (this.props.name === 'initialPayment') {
+            const error = 'Введена сумма больше суммы цели';
+            if (!this.props.isCorrectInitialPayment && this.state.messageError !== error) {               
+                this.setState({messageError: error});
+            } else if (this.props.isCorrectInitialPayment && this.state.messageError === error) {               
+                this.setState({messageError: ''});
+            }
+        }
+
         return (
             <div className="input-money">
                 <label className="input-money__field-label">

@@ -34,10 +34,23 @@ class NewTarget extends Component {
         monthPayment: null,
         accumulatedMoney: null,
         fieldsWithError: ['targetName', 'targetCost', 'finishDate', 'depositInterest'],
-        isSaved: false
+        isSaved: false,
+        isCorrectInitialPayment: true
     }
     
     changeState = (inputName, data, isError = false) => {
+        let checkedCorrectInitialPayment = this.state.isCorrectInitialPayment;
+        if (inputName === 'targetCost' && !isError) {
+            console.log(inputName);
+            checkedCorrectInitialPayment = (this.state.initialPayment <= data) ? true : false;
+        }
+
+        if (inputName === 'initialPayment' && !isError) {
+            console.log(inputName);
+            checkedCorrectInitialPayment = (this.state.targetCost >= data) ? true : false;
+        }
+
+        console.log(checkedCorrectInitialPayment);
 
         if (isError) {
             //Проверяем есть ли поле уже в полях с ошибкой
@@ -63,7 +76,8 @@ class NewTarget extends Component {
             });
 
             //Вносим изменения в локальный State и пересчитываем платеж
-            this.setState({ [inputName]: data, fieldsWithError: [...newFielsWithError] }, () => {
+            this.setState({ [inputName]: data, fieldsWithError: [...newFielsWithError], isCorrectInitialPayment: checkedCorrectInitialPayment }, () => {
+                console.log( this.state);
                 this.calculate();
             });
         }
@@ -71,7 +85,10 @@ class NewTarget extends Component {
     /*Вычисление платежа */
     calculate = () => {
         let isErrors =  true;
-        if (this.state.fieldsWithError.length === 0 || (this.state.fieldsWithError.length === 1 && this.state.fieldsWithError[0] === 'targetName')) {
+        if ((this.state.fieldsWithError.length === 0 
+            || (this.state.fieldsWithError.length === 1 && this.state.fieldsWithError[0] === 'targetName')) 
+            && this.state.isCorrectInitialPayment) 
+        {
             isErrors = false;
         }
 
@@ -117,7 +134,7 @@ class NewTarget extends Component {
 
     updateState = (target) => {
         target.fieldsWithError = [];
-        this.setState({ ...target });
+        this.setState({ ...target }, () => console.log(this.state));
     }
 
     render() { 
@@ -165,7 +182,7 @@ class NewTarget extends Component {
                         type='text'
                         action={this.changeState}
                         value={this.state.initialPayment}
-                        targetCost={this.state.targetCost}
+                        isCorrectInitialPayment={this.state.isCorrectInitialPayment}
                     />
                     <InputArea
                         id='depositInterest'
