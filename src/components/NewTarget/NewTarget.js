@@ -39,18 +39,11 @@ class NewTarget extends Component {
     }
     
     changeState = (inputName, data, isError = false) => {
-        let checkedCorrectInitialPayment = this.state.isCorrectInitialPayment;
-        if (inputName === 'targetCost' && !isError) {
-            console.log(inputName);
-            checkedCorrectInitialPayment = (this.state.initialPayment <= data) ? true : false;
-        }
 
-        if (inputName === 'initialPayment' && !isError) {
-            console.log(inputName);
-            checkedCorrectInitialPayment = (this.state.targetCost >= data) ? true : false;
+        //Проверка полей сумма цели и первоначальный взнос на взаимную корректность
+        if (inputName === 'targetCost' || inputName === 'initialPayment') {
+            this.checkInitialPayment(inputName, data);
         }
-
-        console.log(checkedCorrectInitialPayment);
 
         if (isError) {
             //Проверяем есть ли поле уже в полях с ошибкой
@@ -76,8 +69,7 @@ class NewTarget extends Component {
             });
 
             //Вносим изменения в локальный State и пересчитываем платеж
-            this.setState({ [inputName]: data, fieldsWithError: [...newFielsWithError], isCorrectInitialPayment: checkedCorrectInitialPayment }, () => {
-                console.log( this.state);
+            this.setState({ [inputName]: data, fieldsWithError: [...newFielsWithError] }, () => {
                 this.calculate();
             });
         }
@@ -105,10 +97,29 @@ class NewTarget extends Component {
                 payment = payment <= 0 ? 0 : Math.round(payment * 100) / 100;
             }
 
-            this.setState({ monthPayment: payment, initialPayment: firstPayment, accumulatedMoney: firstPayment});
+            this.setState({ monthPayment: payment, accumulatedMoney: firstPayment});
         } else {
             this.setState({ monthPayment: 0 });
         };
+    }
+
+    /*Проверяем первоначальный взнос*/
+    checkInitialPayment = (inputName, data) => {
+        let checkedCorrectInitialPayment = false;
+        
+        if (inputName === 'targetCost' && (this.state.initialPayment <= data || !this.state.initialPayment)) {
+            //Если введена сумма цели, проверяем, что она больше или равна первоначальному взносу или что первоначальный взнос не заполнен
+            checkedCorrectInitialPayment = true;           
+        }
+        
+        if (inputName === 'initialPayment' && (!data || data <= this.state.targetCost)) {
+            //Ессли введен первоначальный взнос, проверяем, что он меньше или равен цели или что он нулевой
+            checkedCorrectInitialPayment = true;
+        }
+
+        if (checkedCorrectInitialPayment !== this.state.isCorrectInitialPayment) {
+            this.setState({ isCorrectInitialPayment: checkedCorrectInitialPayment});
+        }
     }
 
     getMonth = (date) => {
@@ -165,6 +176,7 @@ class NewTarget extends Component {
                         type='text'
                         action={this.changeState}
                         value={this.state.targetCost}
+                        isCorrectInitialPayment={this.state.isCorrectInitialPayment}
                     />
                     <InputArea
                         id='finishDate'
@@ -201,7 +213,13 @@ class NewTarget extends Component {
                         action={this.changeState}
                         disabled={true}
                     />
-                    <button type="submit" className="new-target__button" disabled={this.state.fieldsWithError.length === 0  ? false : true}>СОХРАНИТЬ</button>
+                    <button 
+                        type="submit" 
+                        className="new-target__button" 
+                        disabled={(this.state.fieldsWithError.length === 0 && this.state.isCorrectInitialPayment) ? false : true}
+                    >
+                        СОХРАНИТЬ
+                    </button>
                     {/* <button class="btn" id="btn-start">Start </button> */}
                 </form>
             </div>

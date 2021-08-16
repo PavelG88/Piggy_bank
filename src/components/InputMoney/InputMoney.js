@@ -8,7 +8,8 @@ class InputMoney extends Component {
     }
 
     checkValue = (event) => {
-        
+        let isError = true;
+
         if (this.props.name === 'targetCost') {
             //Проверка введенной суммы цели
             const error = 'Указать число больше 0 (не более двух знаков после запятой)';
@@ -22,41 +23,53 @@ class InputMoney extends Component {
                     this.setState({messageError: error});
                 } else {
                     this.setState({messageError: ''});
+                    isError = false;
                 }
+
+            } else if (!this.props.isCorrectInitialPayment) {
+                //Проверка, что корректно относительно первоначального взноса
+                const errorInitialPayment = 'Введенная сумма меньше первоначального взноса';
+                this.setState({messageError: errorInitialPayment});
+                isError = false; // т.к. проверяется в компоненте NewTarget
 
             } else {
                 this.setState({messageError: ''});
+                isError = false;
             }
 
         } else if (this.props.name === 'initialPayment') {
             //Проверка первоначального взноса
             if (isNaN(event.target.value.replace(/,/, '.')) || event.target.value < 0) {
                 //Проверка, что число и больше нуля
-                const error = 'Введена сумма меньше 0';
+                const error = 'Введите число больше 0';
                 this.setState({messageError: error});
 
             } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
                 //Проверка, что не более 2-х знаков после запятой
-                const error = 'Не более двух знаков после запятой';
+                const error = "Не более 2-х знаков после запятой"
                 if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
                     this.setState({messageError: error});
-
                 } else {
                     this.setState({messageError: ''});
+                    isError = false;
                 }
+
+            } else if (!this.props.isCorrectInitialPayment) {
+                //Проверка, что корректно относительно первоначального взноса
+                const error = 'Введенная сумма больше суммы цели';
+                this.setState({messageError: error});
+                isError = false; // т.к. проверяется в компоненте NewTarget
 
             } else {
                 this.setState({messageError: ''});
-                
+                isError = false;                
             }
         } else if (this.props.name === 'monthPayment') {
 
         }
-        
-        if (this.state.messageError) {
+
+        if (isError) {
             this.props.action(this.props.name, null, true);
-        } else if (this.props.name === 'initialPayment' && !event.target.value) {
-            this.props.action(this.props.name, null);
         } else {
             this.props.action(this.props.name, +event.target.value.replace(/,/, '.'));
         }
@@ -65,12 +78,19 @@ class InputMoney extends Component {
     render() {
 
         //Проверка, что меньше суммы цели
-        if (this.props.name === 'initialPayment') {
-            const error = 'Введена сумма больше суммы цели';
-            if (!this.props.isCorrectInitialPayment && this.state.messageError !== error) {               
-                this.setState({messageError: error});
-            } else if (this.props.isCorrectInitialPayment && this.state.messageError === error) {               
-                this.setState({messageError: ''});
+        if (this.props.name === 'targetCost' || this.props.name === 'initialPayment') {
+            const errorTargetCost = 'Введенная сумма меньше первоначального взноса';
+            const errorInitialPayment = 'Введенная сумма больше суммы цели';
+
+            if (this.props.isCorrectInitialPayment && (this.state.messageError === errorTargetCost || this.state.messageError === errorInitialPayment)) {               
+                this.setState({messageError: ''});    
+            } 
+            
+            if (!this.props.isCorrectInitialPayment && 
+                ((this.props.name === 'targetCost' && this.state.messageError !== errorTargetCost) || 
+                (this.props.name === 'initialPayment' && this.state.messageError !== errorInitialPayment))) 
+            {               
+                this.props.name === 'targetCost' ? this.setState({messageError: errorTargetCost}) : this.setState({messageError: errorInitialPayment});
             }
         }
 
