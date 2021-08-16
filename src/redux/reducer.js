@@ -1,4 +1,4 @@
-import { addNewTarget, editTarget } from '../components/actions/actions';
+import { addNewTarget, editTarget, deleteTarget } from '../components/actions/actions';
 
 let initialState = {
     targets: [
@@ -43,7 +43,7 @@ function reducer(state = initialState, action) {
         console.log(updateState);
         return updateState;
     
-    } else if(action.type === "DELETE_TARGET") {
+    } else if(action.type === deleteTarget) {
 
         let updateState = {...state};
        let updatedTarget = updateState.targets.filter((target) => {
