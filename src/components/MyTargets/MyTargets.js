@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './MyTargets.css';
 import { connect } from 'react-redux';
+import {deleteTarget } from '../actions/actions';
 
 class MyTargets extends Component {  
 
@@ -28,8 +29,8 @@ class MyTargets extends Component {
                         </div>
                         <div className="chart">
                             <div className="chart_text">
-                                <div className="chart_text_fact">{target.targetCost} руб.</div>
-                                <div className="chart_text_plan">{target.monthPayment} руб.</div>
+                                <div className="chart_text_fact">{target.accumulatedMoney} руб.</div>
+                                <div className="chart_text_plan">{target.targetCost} руб.</div>
                             </div>
                             <div className="grafik">
                                 <div class="meter">
@@ -60,7 +61,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
     deleteTarget: (targetId) => {
         dispatch({
-            type: "DELETE_TARGET",
+            type: deleteTarget,
             payload: targetId
             });
         }
