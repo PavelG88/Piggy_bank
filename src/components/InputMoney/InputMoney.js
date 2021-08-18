@@ -12,19 +12,19 @@ class InputMoney extends Component {
 
         if (this.props.name === 'targetCost') {
             //Проверка введенной суммы цели
-            const error = 'Указать число больше 0 (не более двух знаков после запятой)';
+            const error = 'Указать число больше 0';
             if (!event.target.value || isNaN(event.target.value.replace(/,/, '.')) || event.target.value <= 0) {
                 //Проверка, что поле заполнено, что число и больше нуля
                 this.setState({messageError: error});
 
-            } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
-                //Проверка, что не более 2-х знаков после запятой
-                if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
-                    this.setState({messageError: error});
-                } else {
-                    this.setState({messageError: ''});
-                    isError = false;
-                }
+            // } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
+            //     //Проверка, что не более 2-х знаков после запятой
+            //     if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
+            //         this.setState({messageError: error});
+            //     } else {
+            //         this.setState({messageError: ''});
+            //         isError = false;
+            //     }
 
             } else if (!this.props.isCorrectInitialPayment) {
                 //Проверка, что корректно относительно первоначального взноса
@@ -44,15 +44,15 @@ class InputMoney extends Component {
                 const error = 'Введите число больше 0';
                 this.setState({messageError: error});
 
-            } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
-                //Проверка, что не более 2-х знаков после запятой
-                const error = "Не более 2-х знаков после запятой"
-                if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
-                    this.setState({messageError: error});
-                } else {
-                    this.setState({messageError: ''});
-                    isError = false;
-                }
+            // } else if (event.target.value.replace(/,/, '.').indexOf('.') !== -1) {
+            //     //Проверка, что не более 2-х знаков после запятой
+            //     const error = "Не более 2-х знаков после запятой"
+            //     if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
+            //         this.setState({messageError: error});
+            //     } else {
+            //         this.setState({messageError: ''});
+            //         isError = false;
+            //     }
 
             } else if (!this.props.isCorrectInitialPayment) {
                 //Проверка, что корректно относительно первоначального взноса
@@ -64,6 +64,7 @@ class InputMoney extends Component {
                 this.setState({messageError: ''});
                 isError = false;                
             }
+            
         } else if (this.props.name === 'monthPayment') {
 
         }
@@ -71,7 +72,7 @@ class InputMoney extends Component {
         if (isError) {
             this.props.action(this.props.name, null, true);
         } else {
-            this.props.action(this.props.name, +event.target.value.replace(/,/, '.'));
+            this.props.action(this.props.name, Number(event.target.value.replace(/,/, '.')));
         }
     }
     
