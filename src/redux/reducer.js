@@ -1,7 +1,5 @@
 import { addNewTarget, editTarget, deleteTarget } from '../components/actions/actions';
-const mysql = require('mysql');
-// const express = require('express');
-// const app = express();
+
 
 let initialState = {
     targets: [
@@ -38,40 +36,27 @@ let initialState = {
  */
 
  function getInitialState() {
-    const connection = mysql.createConnection ({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: 'Olga240584',
-        database: 'targets_users'
-    });
-
-    connection.connect((error) => {
-        if (!error) {
-            console.log("Мы подключены к БД")
-        }
-    })
-
-    // app.get('/targets_users/:id', (request, response) => {
-    //     console.log(request.params.id)
-        
-    //     connection.query(`SELECT * FROM table_target WHERE id = ${request.params.id};`, (err, data) => {
-    //         // 
-    //           if (err || data.length === 0) {
-    //             response.status(400).json("not");
-    //             return;
-    //           }
-    
-    //           console.log(data)
-    //           response.status(200).json(data)
-    //     })     
-    // })
-
-    
-}
+     console.log("333");
+     fetch('http://localhost:3001', {
+         method:'GET'
+     })
+        .then(response => {
+            console.log(response)
+            return response.json()
+        })
+        .then(data => {
+          console.log(data);
+          console.log("222");
+        })
+        // .catch(error => {
+        //   console.log(error);
+          
+    //  });
+    return initialState;
+ }
 
 
-function reducer(state = initialState, action) {
+function reducer(state = getInitialState(), action) {
     if (action.type === addNewTarget) {
         //Добавление новой цели
         action.payload.id = state.nextId;
