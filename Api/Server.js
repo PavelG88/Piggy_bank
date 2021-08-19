@@ -17,7 +17,7 @@ connection.connect((error) => {
 })
 
 app.get('/', (request, response) => {
-        console.log("111")
+        
         
         connection.query(`SELECT * FROM table_target;`, (err, data) => {
              
