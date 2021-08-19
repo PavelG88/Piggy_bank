@@ -1,4 +1,7 @@
 import { addNewTarget, editTarget, deleteTarget } from '../components/actions/actions';
+const mysql = require('mysql');
+// const express = require('express');
+// const app = express();
 
 
 let initialState = {
