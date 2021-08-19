@@ -28,7 +28,7 @@ app.get('/', (request, response) => {
     
               console.log(data);
               response.setHeader('Access-Control-Allow-Origin', "http://localhost:3000")
-              response.json(data);
+              response.status(200).json(data);
         })     
     })
 

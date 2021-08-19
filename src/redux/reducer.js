@@ -1,35 +1,31 @@
 import { addNewTarget, editTarget, deleteTarget } from '../components/actions/actions';
-const mysql = require('mysql');
-// const express = require('express');
-// const app = express();
-
 
 let initialState = {
     targets: [
-        {
-            id: 1,
-            targetName: 'Первая цель',
-            targetCost: 1000,
-            finishDate: '2021-09-01',
-            initialPayment: 500,
-            depositInterest: 3.1,
-            monthPayment: 500,
-            createDate: '2021-08-07',
-            lastChangeDate: '2021-08-07',
-            accumulatedMoney: 500
-        },
-        {
-            id: 2,
-            targetName: 'Вторая цель',
-            targetCost: 15000,
-            finishDate: '2021-09-01',
-            initialPayment: 15000,
-            depositInterest: 0.01,
-            monthPayment: 0,
-            createDate: '2021-08-07',
-            lastChangeDate: '2021-08-07',
-            accumulatedMoney: 15000
-        }
+        // {
+        //     id: 1,
+        //     targetName: 'Первая цель',
+        //     targetCost: 1000,
+        //     finishDate: '2021-09-01',
+        //     initialPayment: 500,
+        //     depositInterest: 3.1,
+        //     monthPayment: 500,
+        //     createDate: '2021-08-07',
+        //     lastChangeDate: '2021-08-07',
+        //     accumulatedMoney: 500
+        // },
+        // {
+        //     id: 2,
+        //     targetName: 'Вторая цель',
+        //     targetCost: 15000,
+        //     finishDate: '2021-09-01',
+        //     initialPayment: 15000,
+        //     depositInterest: 0.01,
+        //     monthPayment: 0,
+        //     createDate: '2021-08-07',
+        //     lastChangeDate: '2021-08-07',
+        //     accumulatedMoney: 15000
+        // }
     ],
     nextId: 3
 };
@@ -38,24 +34,22 @@ let initialState = {
  * state = initialState - установка значения по умолчанию. Когда ничего не пердается
  */
 
- function getInitialState() {
-     console.log("333");
-     fetch('http://localhost:3001', {
+ const getInitialState = async() => {
+     
+    await fetch('http://localhost:3001', {
          method:'GET'
      })
         .then(response => {
-            console.log(response)
             return response.json()
         })
         .then(data => {
-          console.log(data);
-          console.log("222");
+            initialState.targets = [...data]
+            console.log("!!!", initialState)
+            return initialState;
         })
-        // .catch(error => {
-        //   console.log(error);
-          
-    //  });
-    return initialState;
+        .catch(error => {
+          console.log(error);  
+     });
  }
 
 
