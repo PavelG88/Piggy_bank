@@ -40,9 +40,7 @@ let initialState = {
 
  function getInitialState() {
      console.log("333");
-     fetch('http://localhost:3001', {
-         method:'GET'
-     })
+     fetch('http://localhost:3001')
         .then(response => {
             console.log(response)
             return response.json()
