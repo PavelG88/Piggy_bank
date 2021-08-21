@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
-import { addNewTarget, editTarget } from '../actions/actions';
+import { addNewTarget, editTarget } from '../actions/types';
 import {Redirect} from 'react-router-dom';
 
 import './NewTarget.css';
@@ -34,6 +34,7 @@ class NewTarget extends Component {
         monthPayment: null,
         accumulatedMoney: null,
         fieldsWithError: ['targetName', 'targetCost', 'finishDate', 'depositInterest'],
+        createDate: today,
         isSaved: false,
         isCorrectInitialPayment: true
     }
@@ -227,21 +228,18 @@ class NewTarget extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        targets: state.targets
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         targets: state.targets
+//     };
+// };
 
 const mapDispatchToProps = dispatch => ({
-    addNewTarget: (newTarget) => dispatch({
-        type: addNewTarget,
-        payload: newTarget
-    }),
+    addNewTarget: (newTarget) => dispatch(addNewTarget(newTarget)),
     editTarget: (newTarget) => dispatch({
         type: editTarget,
         payload: newTarget
     })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTarget);
+export default connect(null, mapDispatchToProps)(NewTarget);

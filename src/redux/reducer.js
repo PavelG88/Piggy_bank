@@ -1,36 +1,9 @@
-import { addNewTarget, editTarget, deleteTarget } from '../components/actions/actions';
-const mysql = require('mysql');
-// const express = require('express');
-// const app = express();
-
+import {addNewTarget, editTarget, successDeleted, addTargetsFromBD, startedConnecting, successLoading, failureConnecting  } from '../components/actions/types';
 
 let initialState = {
-    targets: [
-        {
-            id: 1,
-            targetName: 'Первая цель',
-            targetCost: 1000,
-            finishDate: '2021-09-01',
-            initialPayment: 500,
-            depositInterest: 3.1,
-            monthPayment: 500,
-            createDate: '2021-08-07',
-            lastChangeDate: '2021-08-07',
-            accumulatedMoney: 500
-        },
-        {
-            id: 2,
-            targetName: 'Вторая цель',
-            targetCost: 15000,
-            finishDate: '2021-09-01',
-            initialPayment: 15000,
-            depositInterest: 0.01,
-            monthPayment: 0,
-            createDate: '2021-08-07',
-            lastChangeDate: '2021-08-07',
-            accumulatedMoney: 15000
-        }
-    ],
+    targets: [],
+    loading: false,
+    error: null,
     nextId: 3
 };
 
@@ -38,27 +11,28 @@ let initialState = {
  * state = initialState - установка значения по умолчанию. Когда ничего не пердается
  */
 
- function getInitialState() {
-     console.log("333");
-     fetch('http://localhost:3001')
-        .then(response => {
-            console.log(response)
-            return response.json()
-        })
-        .then(data => {
-          console.log(data);
-          console.log("222");
-        })
-        // .catch(error => {
-        //   console.log(error);
-          
-    //  });
-    return initialState;
- }
+function reducer(state = initialState, action) {
+    if (action.type === successLoading) {
+        //Заполнение глобального хранилища данными из БД
+        let updateState = {...state};
+        updateState.targets = [...action.payload.targets];
+        console.log(updateState);
+        return updateState;
 
+    } else if (action.type === startedConnecting) {
+        //Загрузка данных из БД
+        let updateState = {...state};
+        updateState.loading = true;
+        return updateState;
 
-function reducer(state = getInitialState(), action) {
-    if (action.type === addNewTarget) {
+    } else if (action.type === failureConnecting) {
+        //Ошибка загрузки данных из БД
+        let updateState = {...state};
+        updateState.loading = false;
+        updateState.error = action.payload;
+        return updateState;
+
+    } else if (action.type === addNewTarget) {
         //Добавление новой цели
         action.payload.id = state.nextId;
         let updateState = {...state};
@@ -67,17 +41,17 @@ function reducer(state = getInitialState(), action) {
         console.log(updateState);
         return updateState;
     
-    } else if(action.type === deleteTarget) {
-
+    } else if(action.type === successDeleted) {
+        //Удаление цели по id
         let updateState = {...state};
-       let updatedTarget = updateState.targets.filter((target) => {
-           return target.id !== action.payload
-       }) 
-       updateState.targets = [...updatedTarget];
+        let updatedTarget = updateState.targets.filter((target) => {
+            return target.id !== action.payload.targetId
+        }) 
+        updateState.targets = [...updatedTarget];
         return updateState;
 
     } else if (action.type === editTarget) {
-        //Обновление существующей цели
+        //Обновление существующей цели по id
         let updateState = {...state};
         let index;
         updateState.targets.forEach((target, iter) => {

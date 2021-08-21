@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './MyTargets.css';
 import { connect } from 'react-redux';
-import {deleteTarget } from '../actions/actions';
+import { deleteTarget } from '../actions/actions';
 
 class MyTargets extends Component {  
 
@@ -60,11 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
     deleteTarget: (targetId) => {
-        dispatch({
-            type: deleteTarget,
-            payload: targetId
-            });
-        }
+        dispatch(deleteTarget(targetId));
+    }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTargets);

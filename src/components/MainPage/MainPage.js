@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { loadTargetsFromBD } from '../actions/actions';
 
 import NewTarget from '../NewTarget/NewTarget';
 import MainStart from '../MainStart/MainStart';
@@ -8,6 +10,10 @@ import './MainPage.css';
 import MyTargets from '../MyTargets/MyTargets';
 
 class MainPage extends Component {
+    componentDidMount() {
+        this.props.onLoadTargets();
+    }
+
     render() { 
         return (
             <div className="main-page">
@@ -23,5 +29,10 @@ class MainPage extends Component {
         );
     }
 }
- 
-export default MainPage;
+
+const mapDispatchToProps = dispatch => ({
+    onLoadTargets: () => dispatch(loadTargetsFromBD())
+
+});
+
+export default connect(null, mapDispatchToProps)(MainPage);
