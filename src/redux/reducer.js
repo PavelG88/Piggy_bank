@@ -1,4 +1,4 @@
-import {addNewTarget, editTarget, successDeleted, addTargetsFromBD, startedConnecting, successLoading, failureConnecting  } from '../components/actions/types';
+import { successAdded, successEdited, successDeleted, startedConnecting, successLoading, failureConnecting } from '../components/actions/types';
 
 let initialState = {
     targets: [],
@@ -32,7 +32,7 @@ function reducer(state = initialState, action) {
         updateState.error = action.payload;
         return updateState;
 
-    } else if (action.type === addNewTarget) {
+    } else if (action.type === successAdded) {
         //Добавление новой цели
         action.payload.id = state.nextId;
         let updateState = {...state};
@@ -50,7 +50,7 @@ function reducer(state = initialState, action) {
         updateState.targets = [...updatedTarget];
         return updateState;
 
-    } else if (action.type === editTarget) {
+    } else if (action.type === successEdited) {
         //Обновление существующей цели по id
         let updateState = {...state};
         let index;

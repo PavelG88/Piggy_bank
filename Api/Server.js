@@ -27,7 +27,7 @@ connection.connect((error) => {
 
 app.get('/', (request, response) => {    
     connection.query(`SELECT * FROM table_target;`, (error, data) => {       
-        response.setHeader('Access-Control-Allow-Origin', "http://localhost:3000");
+        // response.setHeader('Access-Control-Allow-Origin', "http://localhost:3000");
         if (error || data.length === 0) {
             response.status(400).json(error);
             return;
@@ -51,21 +51,26 @@ app.delete('/:id', (request, response) => {
     });
 });
 
-// app.post('/', (request, response) => {
-//     const {task_description, due_date, employee, finished_date} = request.body;
+app.post('/', (request, response) => {
+    console.log("Post запрос:");
+    // console.log(request);
+    console.log(request.data);
+    console.log(request.body);
+    const {targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney, createDate} = request.data;
     
-//     connection.query(`
-//             INSERT INTO table_target (targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney, createDate)
-//             VALUES ("${task_description}", "${due_date}", "${employee}", "${finished_date}");
-//         `, 
-//         (error, data) => {
-//             if (error) {
-//                 console.log(error); 
-//                 response.status(403).json(error);
-//                 return;
-//             }
-//     });
-// });
+    connection.query(`
+            INSERT INTO table_target (targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney, createDate)
+            VALUES ("${targetName}", "${targetCost}", "${finishDate}", "${initialPayment}", "${depositInterest}", "${monthPayment}", "${accumulatedMoney}", "${createDate}");
+        `, 
+        (error, data) => {
+            if (error) {
+                console.log(error); 
+                response.status(403).json(error);
+            } else {
+                response.status(200).json(data);
+            }
+    });
+});
 
 app.listen(3001, () => {
     console.log('сервер запущен')

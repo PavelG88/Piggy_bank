@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
-import { addNewTarget, editTarget } from '../actions/types';
+import { addNewTarget } from '../actions/actions';
 import {Redirect} from 'react-router-dom';
 
 import './NewTarget.css';
@@ -139,6 +139,7 @@ class NewTarget extends Component {
         if (newTarget.id) {
             this.props.editTarget(newTarget);
         } else {
+            console.log("Вызываеем диспатч");
             this.props.addNewTarget(newTarget);
         }
         this.setState({ isSaved: true});
@@ -146,7 +147,7 @@ class NewTarget extends Component {
 
     updateState = (target) => {
         target.fieldsWithError = [];
-        this.setState({ ...target }, () => console.log(this.state));
+        this.setState({ ...target });
     }
 
     render() { 
@@ -236,10 +237,10 @@ class NewTarget extends Component {
 
 const mapDispatchToProps = dispatch => ({
     addNewTarget: (newTarget) => dispatch(addNewTarget(newTarget)),
-    editTarget: (newTarget) => dispatch({
-        type: editTarget,
-        payload: newTarget
-    })
+    // editTarget: (newTarget) => dispatch({
+    //     type: editTarget,
+    //     payload: newTarget
+    // })
 });
 
 export default connect(null, mapDispatchToProps)(NewTarget);

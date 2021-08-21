@@ -47,7 +47,6 @@ class InputArea extends Component {
                 if (event.target.value.replace(/,/, '.').split('.')[1].length > 2) {
                     this.setState({messageError: error});
                 } else {
-                    console.log(event.target.value);
                     this.setState({messageError: ''});
                     isError = false;
                 }
