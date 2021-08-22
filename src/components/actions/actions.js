@@ -33,32 +33,19 @@ export const deleteTarget = (id) => {
 
 //Добавление новой цели
 export const addNewTarget = (newTarget) => {
-    console.log("Запустился диспатч на добавление");
-    console.log(newTarget);
     return dispatch => {
         dispatch(startLoading());
 
-    //     axios({
-    //         method: 'post',
-    //         // headers: {
-    //         //     'Content-Type': 'application/json;charset=UTF-8',
-    //         //     "Access-Control-Allow-Origin": "*"
-    //         // },
-    //         url: `http://localhost:3001`,
-    //         params: {'Content-Type': 'application/json;charset=UTF-8'},
-    //         data: JSON.stringify(newTarget)
-    // })
-    axios.post(`http://localhost:3001`, newTarget, { 'Content-Type': 'application/json;charset=UTF-8', "Access-Control-Allow-Origin": "*"})
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-            // dispatch(successAdd(res.data));
-        })
-        .catch(err => {
-            dispatch(loadingFailure(err.message));
-        });
+        axios.post(`http://localhost:3001`, newTarget)
+            .then(res => {
+                newTarget.id = res.data;
+                dispatch(successAdd(newTarget));
+            })
+            .catch(err => {
+                dispatch(loadingFailure(err.message));
+            });
+        };
     };
-};
 
 const loadingSuccess = data => ({
   type: successLoading,
@@ -77,7 +64,7 @@ const successDelete = id => ({
 const successAdd = newTarget => ({
     type: successAdded,
     payload: {
-        newTarget
+        ...newTarget
     }
 });
 

@@ -3,8 +3,7 @@ import { successAdded, successEdited, successDeleted, startedConnecting, success
 let initialState = {
     targets: [],
     loading: false,
-    error: null,
-    nextId: 3
+    error: null
 };
 
 /**
@@ -16,6 +15,7 @@ function reducer(state = initialState, action) {
         //Заполнение глобального хранилища данными из БД
         let updateState = {...state};
         updateState.targets = [...action.payload.targets];
+        updateState.loading = false;
         console.log(updateState);
         return updateState;
 
@@ -34,11 +34,10 @@ function reducer(state = initialState, action) {
 
     } else if (action.type === successAdded) {
         //Добавление новой цели
-        action.payload.id = state.nextId;
         let updateState = {...state};
         updateState.targets = [...state.targets, action.payload];
-        updateState.nextId += 1;
-        console.log(updateState);
+        updateState.loading = false;
+        // console.log(updateState);
         return updateState;
     
     } else if(action.type === successDeleted) {
@@ -48,6 +47,7 @@ function reducer(state = initialState, action) {
             return target.id !== action.payload.targetId
         }) 
         updateState.targets = [...updatedTarget];
+        updateState.loading = false;
         return updateState;
 
     } else if (action.type === successEdited) {
@@ -60,6 +60,7 @@ function reducer(state = initialState, action) {
             }
         });
         updateState.targets[index] = {...action.payload};
+        updateState.loading = false;
         return updateState;
     }
 

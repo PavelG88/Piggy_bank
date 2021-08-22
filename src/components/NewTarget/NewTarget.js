@@ -139,7 +139,6 @@ class NewTarget extends Component {
         if (newTarget.id) {
             this.props.editTarget(newTarget);
         } else {
-            console.log("Вызываеем диспатч");
             this.props.addNewTarget(newTarget);
         }
         this.setState({ isSaved: true});

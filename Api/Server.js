@@ -2,6 +2,9 @@ const mysql = require('mysql');
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const connection = mysql.createConnection ({
     host: 'localhost',
     port: 3306,
@@ -52,12 +55,9 @@ app.delete('/:id', (request, response) => {
 });
 
 app.post('/', (request, response) => {
-    console.log("Post запрос:");
-    // console.log(request);
-    console.log(request.data);
-    console.log(request.body);
-    const {targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney, createDate} = request.data;
-    
+    // console.log("Post запрос:");
+    // console.log(request.body);
+    const {targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney, createDate} = request.body;
     connection.query(`
             INSERT INTO table_target (targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney, createDate)
             VALUES ("${targetName}", "${targetCost}", "${finishDate}", "${initialPayment}", "${depositInterest}", "${monthPayment}", "${accumulatedMoney}", "${createDate}");
@@ -67,7 +67,8 @@ app.post('/', (request, response) => {
                 console.log(error); 
                 response.status(403).json(error);
             } else {
-                response.status(200).json(data);
+                // console.log(data.insertId);
+                response.status(200).json(data.insertId);
             }
     });
 });
