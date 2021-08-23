@@ -37,7 +37,7 @@ function reducer(state = initialState, action) {
         let updateState = {...state};
         updateState.targets = [...state.targets, action.payload];
         updateState.loading = false;
-        // console.log(updateState);
+        console.log(updateState);
         return updateState;
     
     } else if(action.type === successDeleted) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
-import { addNewTarget } from '../actions/actions';
+import { addNewTarget,  editTarget} from '../actions/actions';
 import {Redirect} from 'react-router-dom';
 
 import './NewTarget.css';
@@ -146,6 +146,7 @@ class NewTarget extends Component {
 
     updateState = (target) => {
         target.fieldsWithError = [];
+        target.finishDate = target.finishDate.split("T")[0]
         this.setState({ ...target });
     }
 
@@ -236,10 +237,7 @@ class NewTarget extends Component {
 
 const mapDispatchToProps = dispatch => ({
     addNewTarget: (newTarget) => dispatch(addNewTarget(newTarget)),
-    // editTarget: (newTarget) => dispatch({
-    //     type: editTarget,
-    //     payload: newTarget
-    // })
+    editTarget: (newTarget) => dispatch(editTarget(newTarget))
 });
 
 export default connect(null, mapDispatchToProps)(NewTarget);

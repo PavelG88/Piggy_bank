@@ -9,8 +9,8 @@ const connection = mysql.createConnection ({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    // password: 'Olga240584',
-    password: '7ujm&UJM',
+    password: 'Olga240584',
+    // password: '7ujm&UJM',
     database: 'targets_users'
 });
 
@@ -72,6 +72,27 @@ app.post('/', (request, response) => {
             }
     });
 });
+
+app.put('/', (request, response) => {
+    // console.log("Post запрос:");
+    //  console.log(request.body);
+    const {id, targetName, targetCost, finishDate, initialPayment, depositInterest, monthPayment, accumulatedMoney} = request.body;
+    connection.query(`
+            UPDATE table_target
+            SET targetName = "${targetName}", targetCost = "${targetCost}", finishDate = "${finishDate}", initialPayment = "${initialPayment}", depositInterest = "${depositInterest}", monthPayment = "${monthPayment}", accumulatedMoney = "${accumulatedMoney}"
+            WHERE id = ${id};
+        `, 
+        (error, data) => {
+            if (error) {
+                console.log(error); 
+                response.status(403).json(error);
+            } else {
+                //  console.log(data);
+                response.status(200).json(data);
+            }
+    });
+});
+
 
 app.listen(3001, () => {
     console.log('сервер запущен')

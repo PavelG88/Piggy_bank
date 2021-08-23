@@ -21,8 +21,8 @@ class MyTargets extends Component {
                                         state: {
                                             target: target
                                         }
-                                    }}
-                                ><button>ред.</button>
+                                    }}>
+                                    <button>ред.</button>
                                 </Link>
                                 <button onClick = {() => this.props.deleteTarget(target.id)}>x</button>
                             </div>

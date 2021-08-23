@@ -44,8 +44,26 @@ export const addNewTarget = (newTarget) => {
             .catch(err => {
                 dispatch(loadingFailure(err.message));
             });
-        };
     };
+};
+
+export const editTarget = (newTarget) => {
+    return dispatch => {
+        dispatch(startLoading());
+
+        axios.put(`http://localhost:3001`, newTarget)
+            .then(res => {
+                if (res.changedRows === 1) {
+                  dispatch(successEdit(newTarget));  
+                } else {
+                    dispatch(loadingFailure("Строка не найдена"));
+                }
+            })
+            .catch(err => {
+                dispatch(loadingFailure(err.message));
+            });
+    };
+};
 
 const loadingSuccess = data => ({
   type: successLoading,
@@ -63,6 +81,13 @@ const successDelete = id => ({
 
 const successAdd = newTarget => ({
     type: successAdded,
+    payload: {
+        ...newTarget
+    }
+});
+
+const successEdit = newTarget => ({
+    type: successEdited,
     payload: {
         ...newTarget
     }
