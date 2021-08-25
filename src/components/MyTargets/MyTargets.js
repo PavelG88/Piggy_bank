@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom';
 import './MyTargets.css';
 import { connect } from 'react-redux';
 import { deleteTarget } from '../actions/actions';
+import store from "../../redux/store";
 
 class MyTargets extends Component {  
 
     render() {
+        let i = 0;
         return (
             <div className="my_targets">
+                
                 {this.props.targets.map((target) => {
+                    
                     return(
-                    <>
+                           
+                    <div key={target.id}>
+                        {console.log(this.props.targets[i])}
+                        {console.log("555", target, this.props.targets)}
                         <div className="my_purpose">
                             <div><span className="target_name">{target.targetName}</span></div>               
                             <div className="button">
@@ -41,8 +48,8 @@ class MyTargets extends Component {
                                 <div> </div>
                             </div>    
                             <div className="finish">Осталось накопить {target.targetCost-target.accumulatedMoney} руб.</div>   
-                        </div>
-                    </>
+                        </div>                        
+                    </div>
                     )
                 })}
                                 
@@ -53,6 +60,7 @@ class MyTargets extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log("666", state, store.getState())
     return {
         targets: state.targets
     }

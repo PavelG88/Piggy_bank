@@ -53,9 +53,11 @@ export const editTarget = (newTarget) => {
 
         axios.put(`http://localhost:3001`, newTarget)
             .then(res => {
-                if (res.changedRows === 1) {
+                
+                if (res.data.changedRows === 1) {
                   dispatch(successEdit(newTarget));  
                 } else {
+                    
                     dispatch(loadingFailure("Строка не найдена"));
                 }
             })

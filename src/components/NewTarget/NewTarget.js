@@ -4,6 +4,7 @@ import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
 import { addNewTarget,  editTarget} from '../actions/actions';
 import {Redirect} from 'react-router-dom';
+import store from "../../redux/store";
 
 import './NewTarget.css';
 
@@ -138,9 +139,11 @@ class NewTarget extends Component {
         delete newTarget.isSaved;
         if (newTarget.id) {
             this.props.editTarget(newTarget);
+            console.log("--", store.getState())
         } else {
             this.props.addNewTarget(newTarget);
         }
+        console.log("++", store.getState())
         this.setState({ isSaved: true});
     }
 
@@ -156,6 +159,7 @@ class NewTarget extends Component {
         }
 
         if (this.state.isSaved) {
+            console.log("direct")
             return <Redirect to='/mytargets'/>
         }
         
