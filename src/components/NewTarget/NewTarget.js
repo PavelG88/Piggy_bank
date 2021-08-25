@@ -158,7 +158,7 @@ class NewTarget extends Component {
             this.updateState(this.props.location.state.target);
         }
 
-        if (this.state.isSaved) {
+        if (this.state.isSaved && !this.props.loading) {
             console.log("direct")
             return <Redirect to='/mytargets'/>
         }
@@ -233,15 +233,15 @@ class NewTarget extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         targets: state.targets
-//     };
-// };
+const mapStateToProps = (state) => {
+    return {
+        loading: state.loading
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     addNewTarget: (newTarget) => dispatch(addNewTarget(newTarget)),
     editTarget: (newTarget) => dispatch(editTarget(newTarget))
 });
 
-export default connect(null, mapDispatchToProps)(NewTarget);
+export default connect(mapStateToProps, mapDispatchToProps)(NewTarget);

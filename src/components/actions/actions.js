@@ -1,13 +1,14 @@
 import { successAdded, successEdited, successDeleted, startedConnecting, successLoading, failureConnecting } from './types';
-import axios from 'axios';
+import axios from "axios";
 
 //Первоначальная загрузка целей из БД
 export const loadTargetsFromBD = () => {
     return dispatch => {
         dispatch(startLoading());
-
+    
     axios.get(`http://localhost:3001`)
         .then(res => {
+            
             dispatch(loadingSuccess(res.data));
         })
         .catch(err => {
@@ -50,12 +51,12 @@ export const addNewTarget = (newTarget) => {
 export const editTarget = (newTarget) => {
     return dispatch => {
         dispatch(startLoading());
-
+        console.log("Отправили запрос")
         axios.put(`http://localhost:3001`, newTarget)
             .then(res => {
-                
+                console.log("Получили ответ")
                 if (res.data.changedRows === 1) {
-                  dispatch(successEdit(newTarget));  
+                    dispatch(successEdit(newTarget));  
                 } else {
                     
                     dispatch(loadingFailure("Строка не найдена"));
