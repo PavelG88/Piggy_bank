@@ -4,7 +4,6 @@ import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
 import { addNewTarget,  editTarget} from '../actions/actions';
 import {Redirect} from 'react-router-dom';
-import store from "../../redux/store";
 
 import './NewTarget.css';
 

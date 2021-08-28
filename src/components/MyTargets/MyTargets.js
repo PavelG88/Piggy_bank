@@ -43,7 +43,6 @@ class MyTargets extends Component {
                                         }}>
                                         <button>ред.</button>
                                     </Link>
-                                    {/* <button onClick = {() => this.props.deleteTarget(target.id)}>x</button> */}
                                     <button onClick = {() => this.confirmationDeletion(target.id, target.targetName)}>x</button>
                                 </div>
                             </div>
@@ -58,7 +57,6 @@ class MyTargets extends Component {
                                             {target.accumulatedMoney/target.targetCost*100 === 100 ? "Цель достигнута!" : (Math.round(target.accumulatedMoney/target.targetCost*10000))/100 + "%"}
                                         </span>
                                     </div>
-                                    <div> </div>
                                 </div>    
                                 <div className="finish">Осталось накопить {target.targetCost-target.accumulatedMoney} руб.</div>   
                             </div>                        
