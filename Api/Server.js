@@ -1,17 +1,17 @@
 const mysql = require('mysql');
 const express = require('express');
 const app = express();
+const config = require('./config')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const connection = mysql.createConnection ({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    // password: 'Olga240584',
-    password: '7ujm&UJM',
-    database: 'targets_users'
+    host: config.host,
+    port: config.port,
+    user: config.user,
+    password: config.password,
+    database: config.database
 });
 
 const cors = require('cors');
