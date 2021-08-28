@@ -3,12 +3,29 @@ import { Link } from 'react-router-dom';
 import './MyTargets.css';
 import { connect } from 'react-redux';
 import { deleteTarget } from '../actions/actions';
-import store from "../../redux/store";
 
 class MyTargets extends Component {  
 
-    render() {
-        let i = 0;
+    state = {
+        isConfirm: false,
+        targetName: '',
+        targetId: null
+    }
+
+    confirmationDeletion = (id, targetName) => {
+        this.setState({isConfirm: true, targetName: targetName, targetId: id});
+    }
+
+    clickDelet = () => {
+        this.props.deleteTarget(this.state.targetId);
+        this.setState({isConfirm: false, targetName: '', targetId: null});
+    }
+    
+    clickCancel = () => {
+        this.setState({isConfirm: false, targetName: '', targetId: null});
+    } 
+
+    render() {      
         return (
             <div className="my_targets">
                 {this.props.targets.map((target) => {
@@ -26,7 +43,8 @@ class MyTargets extends Component {
                                         }}>
                                         <button>ред.</button>
                                     </Link>
-                                    <button onClick = {() => this.props.deleteTarget(target.id)}>x</button>
+                                    {/* <button onClick = {() => this.props.deleteTarget(target.id)}>x</button> */}
+                                    <button onClick = {() => this.confirmationDeletion(target.id, target.targetName)}>x</button>
                                 </div>
                             </div>
                             <div className="chart">
@@ -37,7 +55,7 @@ class MyTargets extends Component {
                                 <div className="grafik">
                                     <div class="meter">
                                         <span style={{width: target.accumulatedMoney/target.targetCost*100 + "%"}}>
-                                            {target.accumulatedMoney/target.targetCost*100 === 100 ? "Цель достигнута!" : Math.round(target.accumulatedMoney/target.targetCost*10000)/100 + "%"}
+                                            {target.accumulatedMoney/target.targetCost*100 === 100 ? "Цель достигнута!" : (Math.round(target.accumulatedMoney/target.targetCost*10000))/100 + "%"}
                                         </span>
                                     </div>
                                     <div> </div>
@@ -49,6 +67,18 @@ class MyTargets extends Component {
                     })}
                                     
                     <Link  to="/newtarget" className="new_chart">Новая цель</Link>
+
+                    <div className={this.state.isConfirm ? "confirm visible" : "confirm unvisible"}>
+                        <div className="confirm_wrapper">
+                            <p className="confirm_text">Вы уверены, что хотите удалить цель:</p> 
+                            <p className="confirm_text-name">{this.state.targetName}</p>
+                            <div className="confirm__buttons">
+                                <button className="confirm__button" onClick = {this.clickDelet}>Удалить</button>
+                                <button className="confirm__button" onClick = {this.clickCancel}>Отменить</button>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
         )
     }
