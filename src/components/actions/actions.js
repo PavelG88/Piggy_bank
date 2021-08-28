@@ -51,10 +51,8 @@ export const addNewTarget = (newTarget) => {
 export const editTarget = (newTarget) => {
     return dispatch => {
         dispatch(startLoading());
-        console.log("Отправили запрос")
         axios.put(`http://localhost:3001`, newTarget)
             .then(res => {
-                console.log("Получили ответ")
                 if (res.data.changedRows === 1) {
                     dispatch(successEdit(newTarget));  
                 } else {

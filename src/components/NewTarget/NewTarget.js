@@ -139,11 +139,9 @@ class NewTarget extends Component {
         delete newTarget.isSaved;
         if (newTarget.id) {
             this.props.editTarget(newTarget);
-            console.log("--", store.getState())
         } else {
             this.props.addNewTarget(newTarget);
         }
-        console.log("++", store.getState())
         this.setState({ isSaved: true});
     }
 
@@ -159,7 +157,6 @@ class NewTarget extends Component {
         }
 
         if (this.state.isSaved && !this.props.loading) {
-            console.log("direct")
             return <Redirect to='/mytargets'/>
         }
         
