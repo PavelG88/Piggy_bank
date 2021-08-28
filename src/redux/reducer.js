@@ -16,7 +16,6 @@ function reducer(state = initialState, action) {
         let updateState = {...state};
         updateState.targets = [...action.payload.targets];
         updateState.loading = false;
-        console.log(updateState);
         return updateState;
 
     } else if (action.type === startedConnecting) {
@@ -37,7 +36,6 @@ function reducer(state = initialState, action) {
         let updateState = {...state};
         updateState.targets = [...state.targets, action.payload];
         updateState.loading = false;
-        // console.log(updateState);
         return updateState;
     
     } else if(action.type === successDeleted) {

@@ -61,7 +61,7 @@
     font-size: 14px;
 }
 
-.new_chart {
+.new_chart, .confirm__button {
     text-decoration: none;
     margin: 10px auto;
     width: 120px;
@@ -74,4 +74,48 @@
 
 .new_chart:hover {
     background-color: rgb(180, 207, 81);
+}
+
+.unvisible {
+    display: none
+}
+
+.visible {
+    display: flex;
+}
+
+.confirm {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.411);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    min-height: 100vh;
+}
+
+.confirm_wrapper {
+    margin: auto;
+    max-width: 400px;
+    min-height: 100px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgb(197, 247, 230);
+    border-radius: 5px;
+}
+
+.confirm_text {
+    text-align: center;
+    font-size: 16px;
+}
+
+.confirm_text-name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.confirm__buttons {
+    display: flex;
+    justify-content: space-evenly;
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import InputArea from '../InputArea/InputArea';
 import InputMoney from '../InputMoney/InputMoney';
 import {connect} from 'react-redux';
-import { addNewTarget } from '../actions/actions';
+import { addNewTarget,  editTarget} from '../actions/actions';
 import {Redirect} from 'react-router-dom';
 
 import './NewTarget.css';
@@ -146,6 +146,7 @@ class NewTarget extends Component {
 
     updateState = (target) => {
         target.fieldsWithError = [];
+        target.finishDate = target.finishDate.split("T")[0]
         this.setState({ ...target });
     }
 
@@ -154,7 +155,7 @@ class NewTarget extends Component {
             this.updateState(this.props.location.state.target);
         }
 
-        if (this.state.isSaved) {
+        if (this.state.isSaved && !this.props.loading) {
             return <Redirect to='/mytargets'/>
         }
         
@@ -228,18 +229,15 @@ class NewTarget extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         targets: state.targets
-//     };
-// };
+const mapStateToProps = (state) => {
+    return {
+        loading: state.loading
+    };
+};
 
 const mapDispatchToProps = dispatch => ({
     addNewTarget: (newTarget) => dispatch(addNewTarget(newTarget)),
-    // editTarget: (newTarget) => dispatch({
-    //     type: editTarget,
-    //     payload: newTarget
-    // })
+    editTarget: (newTarget) => dispatch(editTarget(newTarget))
 });
 
-export default connect(null, mapDispatchToProps)(NewTarget);
+export default connect(mapStateToProps, mapDispatchToProps)(NewTarget);
