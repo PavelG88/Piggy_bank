@@ -6,6 +6,7 @@ const config = require('./config')
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 const connection = mysql.createConnection ({
     host: config.host,
     port: config.port,
